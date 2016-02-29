@@ -50,7 +50,8 @@ router.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-	res.render('index')
+	var user = req.user || "no user"
+	res.render('index', {user: user})
 })
 
 app.get('/blog', function(req, res) {
