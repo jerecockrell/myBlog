@@ -1,15 +1,19 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var session = require('express-session');
 var passport = require('passport');
-var flash = require('connect-flash');
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/myblog');
+var flash = require('connect-flash');
+var session = require('express-session');
 
+var postRoutes = require('./routes/posts');
+var userRoutes = require('./routes/user');
+var tweetRoutes = require('./routes/tweets');
 var Post = require('./models/post');
-var postRoutes = require('./routes/posts')
+
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -38,8 +42,6 @@ app.use(function(req, res, next){
   console.log(user);
   next();
 });
-
-app.set('view engine', 'ejs')
 
 var router = express.Router();
 
@@ -72,7 +74,17 @@ app.get('/contact', function(req, res) {
 	res.render('contact')
 })
 
+app.get('/newPost', function(req, res) {
+	res.render('newPost')
+})
+
+app.get('/social', function(req, res) {
+	res.render('social')
+})
+
 app.use('/api', postRoutes);
+
+app.use('/api/tweets/', tweetRoutes);
 
 
 
