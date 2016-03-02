@@ -10,7 +10,7 @@ var T = new Twit({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET,
   timeout_ms:          60*1000,  // optional HTTP request timeout to apply to all requests.
 });
-// all routes prepended with 
+// all routes prepended with /API/TWEETS/
 router.route('/:keyword')
   .get(function(req, res){
     var keyword = req.params.keyword;
